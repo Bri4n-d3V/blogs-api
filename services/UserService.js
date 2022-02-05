@@ -8,14 +8,6 @@ const getAll = async () => {
   return user;
 };
 
-/* const validateUser = async ({ displayName }) => {
-  console.log('displayName Service =>', { displayName });
-
-  const validation = await UserSchema.validate({ displayName });
-  console.log('validation.details Service =>', validation.details);
-  return validation;
-}; */
-
 const createUser = async (body) => {
   const { displayName, email, password } = body;
 
