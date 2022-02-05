@@ -23,7 +23,7 @@ const login = async (body) => {
     if (findUser) {
       const token = jwt.sign(body, process.env.SECRET,
         { algorithm: 'HS256', expiresIn: 300 });
-     return { status: 200, message: { message: token } };
+     return { status: 200, message: { token } };
     }
 
     if (!findUser) return { status: 400, message: { message: 'Invalid fields' } };

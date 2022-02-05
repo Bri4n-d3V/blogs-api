@@ -1,9 +1,10 @@
 const UserService = require('../services/UserService');
 
-const getAll = async (_req, res) => {
-    const user = await UserService.getAll();
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
 
-    res.status(200).json(user);
+    const user = await UserService.getAll(authorization);
+    res.status(user.status).json(user.message);
 };
 
 const createUser = async (req, res) => {

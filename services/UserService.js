@@ -2,10 +2,21 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const UserSchema = require('../schemas/UserSchema');
 
-const getAll = async () => {
-  const user = await User.findAll();
+const getAll = async (authorization) => {
+  console.log('authorization =>', authorization);
 
-  return user;
+  if (!authorization) return { status: 401, message: { message: 'Token not found' } };
+
+    const validateToken = await UserSchema.validateToken(authorization);
+    console.log('validateToken =>', validateToken);
+
+    if (validateToken) {
+      return { status: validateToken.status,
+      message: { message: validateToken.message } }; 
+    }
+
+  const users = await User.findAll();
+  return { status: 200, message: users };
 };
 
 const createUser = async (body) => {
@@ -27,8 +38,8 @@ const createUser = async (body) => {
 
     await User.create(body);
     const token = jwt.sign(body, process.env.SECRET,
-       { algorithm: 'HS256', expiresIn: 300 });
-    return { status: 201, message: { message: token } };
+       { algorithm: 'HS256', expiresIn: '1d' });
+    return { status: 201, message: { token } };
 };
 
 module.exports = {

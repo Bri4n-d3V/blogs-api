@@ -1,5 +1,5 @@
 // const Joi = require('joi');
-
+const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
 /* const joiSchema = Joi.object({
@@ -48,4 +48,16 @@ const validatePassword = (password) => {
   }
 };
 
-module.exports = { /* joiSchema, */ validateName, validateEmail, validatePassword };
+const validateToken = async (authorization) => {
+  try {
+  await jwt.verify(authorization, process.env.SECRET);
+  return false;
+  } catch (err) {
+    return { status: 401, message: 'Expired or invalid token' };
+  }
+};
+
+module.exports = { /* joiSchema, */ validateName, 
+  validateEmail,
+validatePassword,
+validateToken };
