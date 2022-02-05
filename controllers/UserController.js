@@ -13,4 +13,13 @@ const createUser = async (req, res) => {
   return res.status(user.status).json(user.message);
 };
 
-module.exports = { getAll, createUser };
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+
+  const user = await UserService.getById(id, authorization);
+
+  return res.status(user.status).json(user.message);
+};
+
+module.exports = { getAll, createUser, getById };

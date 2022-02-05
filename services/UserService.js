@@ -42,7 +42,24 @@ const createUser = async (body) => {
     return { status: 201, message: { token } };
 };
 
+const getById = async (id, authorization) => {
+  if (!authorization) return { status: 401, message: { message: 'Token not found' } };
+  
+  const validateToken = await UserSchema.validateToken(authorization);
+  if (validateToken) {
+ return { status: validateToken.status,
+    message: { message: validateToken.message } }; 
+}
+
+  const user = await User.findByPk(id);
+
+  if (!user) return { status: 404, message: { message: 'User does not exist' } };
+
+  return { status: 200, message: user };
+};
+
 module.exports = {
   getAll,
   createUser,
+  getById,
 };
