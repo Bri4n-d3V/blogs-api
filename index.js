@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const UserRouter = require('./routers/userRouter');
 const LoginRouter = require('./routers/loginRouter');
 const CategoryRouter = require('./routers/categoryRouter');
+const BlogPostRouter = require('./routers/blogpostRouter');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,5 +18,6 @@ app.get('/', (request, response) => {
 app.use('/user', UserRouter);
 app.use('/login', LoginRouter);
 app.use('/categories', CategoryRouter);
+app.use('/post', BlogPostRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

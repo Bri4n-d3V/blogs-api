@@ -24,13 +24,12 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       published: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       updated: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
     })
