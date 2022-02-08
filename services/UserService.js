@@ -37,7 +37,7 @@ const createUser = async (body) => {
     }
 
     await User.create(body);
-    const token = jwt.sign(body, process.env.SECRET,
+    const token = jwt.sign(body, process.env.JWT_SECRET,
        { algorithm: 'HS256', expiresIn: '1d' });
     return { status: 201, message: { token } };
 };

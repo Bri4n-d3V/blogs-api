@@ -50,7 +50,7 @@ const validatePassword = (password) => {
 
 const validateToken = async (authorization) => {
   try {
-  await jwt.verify(authorization, process.env.SECRET);
+  await jwt.verify(authorization, process.env.JWT_SECRET);
   return false;
   } catch (err) {
     return { status: 401, message: 'Expired or invalid token' };

@@ -21,7 +21,7 @@ const login = async (body) => {
     const findUser = await User.findOne({ where: { email, password } });
 
     if (findUser) {
-      const token = jwt.sign(body, process.env.SECRET,
+      const token = jwt.sign(body, process.env.JWT_SECRET,
         { algorithm: 'HS256', expiresIn: 300 });
      return { status: 200, message: { token } };
     }
