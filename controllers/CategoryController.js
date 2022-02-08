@@ -10,6 +10,7 @@ const createCategory = async (req, res) => {
 
 const getAll = async (req, res) => {
   const { authorization } = req.headers;
+  console.log('authorization =>', authorization);
 
   const categories = await CategoryService.getAll(authorization);
 
